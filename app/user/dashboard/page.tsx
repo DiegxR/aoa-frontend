@@ -84,6 +84,7 @@ const UserDashboardPage = () => {
             <div className="relative h-[250px] overflow-hidden">
               {product.image ? (
                 <Image
+                  fill
                   src={product.image}
                   alt={product.name}
                   className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"

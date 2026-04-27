@@ -1,6 +1,6 @@
 "use client";
 
-import DashboardTemplate from "@/app/components/DashboardTamplate";
+import DashboardTemplate from "@/app/components/templates/DashboardTemplate";
 import { ProductsProvider } from "@/app/context/ProductsContext";
 import React from "react";
 

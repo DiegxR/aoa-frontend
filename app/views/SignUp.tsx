@@ -1,11 +1,12 @@
 "use client";
 import { useForm, FormProvider } from "react-hook-form";
-import SignTemplate from "@/app/components/SignTemplate";
+import SignTemplate from "@/app/components/templates/SignTemplate";
 import { useAuth } from "@/app/hooks/useAuth";
 import { useRouter } from "next/navigation";
 import { useAppDispatch } from "@/lib/store/hooks";
 import { hydrateFromStorage } from "@/lib/features/authSlice";
 import { toast } from "react-hot-toast";
+import { InputConfig } from "@/app/types/ui";
 
 interface SignUpFormData {
   name: string;
@@ -51,7 +52,7 @@ const SignUp = () => {
     }
   };
 
-  const signUpInputs = [
+  const signUpInputs: InputConfig[] = [
     {
       name: "name",
       type: "text",

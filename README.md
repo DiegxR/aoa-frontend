@@ -1,36 +1,93 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AOA Frontend - Portal de Gestión y Compras
 
-## Getting Started
+Aplicación moderna basada en Next.js 16 para la administración de inventario y plataforma de compras para usuarios finales.
 
-First, run the development server:
+## Tecnologías Principales
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Framework:** Next.js 16 (App Router)
+- **Lenguaje:** TypeScript
+- **Estilos:** Tailwind CSS
+- **Estado Global:** Redux Toolkit
+- **Formularios:** React Hook Form + Formik
+- **API Client:** Apollo Client (GraphQL)
+- **Pruebas:** Vitest + React Testing Library
+- **Iconos:** Iconify (Solar/Material Symbols) + Lucide React
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Arquitectura
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+El frontend ha sido refactorizado bajo el paradigma de **Atomic Design**, asegurando componentes altamente reutilizables y modulares:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **`app/components/atoms`**: Componentes básicos e indivisibles (Input, NavLink, Chart).
+- **`app/components/molecules`**: Conjuntos de átomos (DynamicFormFields).
+- **`app/components/organisms`**: Secciones complejas de la página (CartSidebar).
+- **`app/components/templates`**: Estructuras de layout para páginas (DashboardTemplate, SignTemplate).
+- **`app/views`**: Contenedores lógicos de alto nivel para formularios complejos (SignIn, SignUp).
 
-## Learn More
+## Características Implementadas
 
-To learn more about Next.js, take a look at the following resources:
+1. **Diseño Atómico & SOLID**: Componentes desacoplados con responsabilidades únicas.
+2. **Formularios Dinámicos**: Renderizado de campos mediante arreglos de configuración (`InputConfig[]`).
+3. **Gestión de Estado**: Integración de Redux para carrito de compras, autenticación y datos persistentes.
+4. **Validación de Formularios**: Integración con React Hook Form para una gestión de errores eficiente y accesible.
+5. **Panel Administrativo**: Dashboards interactivos con gráficos (Chart.js) para inventario y ventas.
+6. **Experiencia de Usuario**: Toasts de notificación, estados de carga y diseño responsivo.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Configuración y Desarrollo
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Requisitos
+- Node.js (v20+)
 
-## Deploy on Vercel
+### Pasos
+1. Instalar dependencias:
+   ```bash
+   npm install
+   ```
+2. Iniciar servidor de desarrollo:
+   ```bash
+   npm run dev
+   ```
+3. Ejecutar pruebas unitarias:
+   ```bash
+   npm test
+   ```
+4. Construir para producción:
+   ```bash
+   npm run build
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Tecnologías y Librerías
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Dependencias de Producción
+- **next (16.2.4)**: Framework de React para producción con renderizado en el servidor y generación de sitios estáticos.
+- **react (19.2.4)**: Biblioteca base para la construcción de interfaces de usuario.
+- **@apollo/client (4.1.9)**: Cliente completo para gestionar datos locales y remotos con GraphQL.
+- **@reduxjs/toolkit (2.11.2)**: Herramienta oficial para la gestión de estado global eficiente y predecible.
+- **react-redux (9.2.0)**: Vinculaciones oficiales de Redux para React.
+- **react-hook-form (7.74.0)**: Gestión de formularios eficiente, basada en hooks y con alto rendimiento.
+- **formik (2.4.9)**: Biblioteca para facilitar la creación de formularios complejos y validaciones.
+- **yup (1.7.1)**: Constructor de esquemas para validación de objetos y formularios.
+- **chart.js & react-chartjs-2**: Bibliotecas para la visualización de datos mediante gráficos interactivos.
+- **lucide-react**: Conjunto de iconos vectoriales hermosos y consistentes.
+- **date-fns (4.1.0)**: Manipulación y formateo de fechas de forma modular y ligera.
+- **react-hot-toast**: Notificaciones ligeras y personalizables para mejorar la UX.
+- **next-cloudinary & cloudinary**: Integración y optimización de imágenes alojadas en la nube.
+
+### Dependencias de Desarrollo
+- **tailwindcss (4)**: Framework de CSS "utility-first" para diseño rápido y responsivo.
+- **typescript (5)**: Superset de JavaScript que añade tipado estático para mayor robustez.
+- **vitest**: Framework de pruebas unitarias ultrarrápido compatible con Vite.
+- **@testing-library/react**: Utilidades para probar componentes de React de forma centrada en el usuario.
+- **@iconify/tailwind4**: Integración de miles de iconos directamente mediante clases de Tailwind.
+
+## Limpieza de Código y Optimización
+Se han realizado las siguientes acciones de mantenimiento:
+- **Consolidación de Tipos**: Eliminación de archivos de tipos duplicados y centralización en `app/types/ui.ts`.
+- **Eliminación de Componentes Obsoletos**: Se eliminaron componentes como `DashboardButton.tsx` y `DashboardTamplate.tsx` (con error ortográfico) reemplazándolos por versiones atómicas.
+- **Optimización de Imports**: Limpieza de imports no utilizados en las páginas principales.
+- **Estandarización de Inputs**: Migración de todos los inputs nativos a el átomo `Input.tsx` para asegurar consistencia en estilos y accesibilidad.
+
+## Resumen del Frontend
+El frontend es una aplicación moderna, escalable y mantenible. Utiliza **Next.js 16** con **Atomic Design** para una organización clara. La gestión de datos es híbrida: **Redux** para el estado de la UI (carrito, auth) y **Apollo Client** para la comunicación fluida con la API GraphQL. Se prioriza la accesibilidad y la experiencia de usuario mediante validaciones robustas y feedback visual inmediato.
+
+## Guía de Estructura
+Para más detalles sobre cómo crear nuevos componentes y utilizar el sistema de diseño, consulte [STRUCTURE.md](./STRUCTURE.md).

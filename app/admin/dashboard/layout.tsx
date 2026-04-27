@@ -1,4 +1,4 @@
-import DashboardTemplate from '@/app/components/DashboardTamplate';
+import DashboardTemplate from '@/app/components/templates/DashboardTemplate';
 import React from 'react'
 import { UsersProvider } from '../../context/UsersContext';
 import { ProductsProvider } from '../../context/ProductsContext';

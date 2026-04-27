@@ -1,10 +1,11 @@
 "use client";
 import { useState } from "react";
-import Input from "./Input";
+import Input from "@/app/components/atoms/Input";
 import Image from "next/image";
 import logo from "@/public/logo.png";
 import Link from "next/link";
-import { InputField, SignTemplateProps } from "../types/sign";
+import { InputConfig, SignTemplateProps } from "@/app/types/ui";
+import { useFormContext } from "react-hook-form";
 
 const SignTemplate = ({
   title,
@@ -20,12 +21,13 @@ const SignTemplate = ({
   const [showPassword, setShowPassword] = useState<{ [key: string]: boolean }>(
     {},
   );
+  const { register, formState: { errors } } = useFormContext();
 
   const togglePasswordVisibility = (fieldName: string) => {
     setShowPassword((prev) => ({ ...prev, [fieldName]: !prev[fieldName] }));
   };
 
-  const getInputType = (input: InputField) => {
+  const getInputType = (input: InputConfig) => {
     if (input.type === "password") {
       return showPassword[input.name] ? "text" : "password";
     }
@@ -58,9 +60,7 @@ const SignTemplate = ({
             {inputs.map((input, index) => (
               <div key={input.name || index} className="relative">
                 <Input
-                  name={input.name}
                   fullWidth
-                  validation={input.validation}
                   type={getInputType(input)}
                   label={
                     input.label ||
@@ -74,6 +74,8 @@ const SignTemplate = ({
                   required={input.required}
                   disabled={isLoading}
                   className="w-full"
+                  errorMessage={errors[input.name]?.message as string}
+                  {...register(input.name, input.validation)}
                 />
 
                 {/* Botón mostrar/ocultar contraseña */}

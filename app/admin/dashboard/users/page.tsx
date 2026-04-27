@@ -1,10 +1,34 @@
 "use client";
 
-import Input from "@/app/components/Input";
 import { useUsersContext } from "../../../context/UsersContext";
 import { Formik } from "formik";
 import toast from "react-hot-toast";
 import * as Yup from "yup";
+import { InputConfig } from "@/app/types/ui";
+import DynamicFormFields from "@/app/components/molecules/DynamicFormFields";
+
+const userFields: InputConfig[] = [
+  {
+    name: "name",
+    label: "Nombre",
+    placeholder: "Nombre completo",
+    required: true,
+  },
+  {
+    name: "email",
+    type: "email",
+    label: "Correo",
+    placeholder: "correo@ejemplo.com",
+    required: true,
+  },
+  {
+    name: "password",
+    type: "password",
+    label: "Contraseña",
+    placeholder: "********",
+    required: true,
+  },
+];
 
 const userSchema = Yup.object({
   name: Yup.string()
@@ -88,42 +112,9 @@ const UsersPage = () => {
         }) => (
           <form
             onSubmit={handleSubmit}
-            className="grid grid-cols-1 md:grid-cols-2 gap-4 rounded-xl border border-white/10 p-4"
+            className="grid grid-cols-1 gap-4 rounded-xl border border-white/10 p-4"
           >
-            <Input
-              name="name"
-              label="Nombre"
-              placeholder="Nombre completo"
-              value={values.name}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              errorMessage={touched.name ? errors.name : undefined}
-              fullWidth
-            />
-
-            <Input
-              name="email"
-              type="email"
-              label="Correo"
-              placeholder="correo@ejemplo.com"
-              value={values.email}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              errorMessage={touched.email ? errors.email : undefined}
-              fullWidth
-            />
-
-            <Input
-              name="password"
-              type="password"
-              label="Contraseña"
-              placeholder="********"
-              value={values.password}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              errorMessage={touched.password ? errors.password : undefined}
-              fullWidth
-            />
+            <DynamicFormFields fields={userFields} />
 
             <div className="md:col-span-2 flex items-center gap-2">
               <button

@@ -162,8 +162,8 @@ export const INVENTORY_TRENDS_QUERY = `
 `;
 
 export const MOVEMENTS_REPORT_QUERY = `
-  query MovementsReport($productId: ID, $type: String, $startDate: String, $endDate: String) {
-    movements(productId: $productId, type: $type, startDate: $startDate, endDate: $endDate) {
+  query MovementsReport($productId: ID, $type: String, $userId: ID, $startDate: String, $endDate: String) {
+    movements(productId: $productId, type: $type, userId: $userId, startDate: $startDate, endDate: $endDate) {
       id
       product {
         id

@@ -1,38 +1,26 @@
 "use client";
 
 import { createClientClient } from "@/lib/graphql/client";
-import { ME_QUERY } from "@/lib/graphql/queries";
+import { MOVEMENTS_REPORT_QUERY } from "@/lib/graphql/queries";
 import { useEffect, useState } from "react";
-import { gql } from "graphql-request";
-
-const USER_MOVEMENTS_QUERY = gql`
-  query UserMovements {
-    movements {
-      id
-      product {
-        name
-        image
-      }
-      type
-      quantity
-      unitPrice
-      totalValue
-      createdAt
-    }
-  }
-`;
+import { useAuth } from "@/app/hooks/useAuth";
 
 const PurchasesPage = () => {
+  const { user } = useAuth();
   const [movements, setMovements] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchPurchases = async () => {
+      if (!user?.id) return;
+      
       try {
         const client = createClientClient();
-        const data: any = await client.request(USER_MOVEMENTS_QUERY);
-        // Filtrar solo salidas (compras)
-        setMovements(data.movements.filter((m: any) => m.type === "salida"));
+        const data: any = await client.request(MOVEMENTS_REPORT_QUERY, {
+          userId: user.id,
+          type: "salida"
+        });
+        setMovements(data.movements);
       } catch (error) {
         console.error("Error fetching purchases:", error);
       } finally {
@@ -41,7 +29,7 @@ const PurchasesPage = () => {
     };
 
     fetchPurchases();
-  }, []);
+  }, [user?.id]);
 
   if (isLoading) {
     return (
@@ -88,7 +76,7 @@ const PurchasesPage = () => {
                 <td className="p-4 text-right text-blue-400">${movement.unitPrice.toFixed(2)}</td>
                 <td className="p-4 text-right font-black text-white">${movement.totalValue.toFixed(2)}</td>
                 <td className="p-4 text-right text-white/40">
-                  {new Date(parseInt(movement.createdAt)).toLocaleDateString()}
+                  {new Date(isNaN(Number(movement.createdAt)) ? movement.createdAt : Number(movement.createdAt)).toLocaleDateString()}
                 </td>
               </tr>
             ))}

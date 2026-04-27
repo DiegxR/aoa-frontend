@@ -7,7 +7,8 @@ import {
   MOVEMENTS_REPORT_QUERY,
   PRODUCTS_QUERY,
 } from "@/lib/graphql/queries";
-import AdminChart from "@/app/components/AdminChart";
+import AdminChart from "@/app/components/atoms/Chart";
+import Input from "@/app/components/atoms/Input";
 import { 
   Package, 
   ArrowUpRight, 
@@ -148,26 +149,27 @@ const InventoryPanel = () => {
         <div className="rounded-3xl border border-white/5 bg-white/[0.03] p-8 shadow-xl">
           <div className="flex flex-col gap-6">
             <h3 className="text-lg font-bold text-white">Filtros de Movimiento</h3>
-            <div className="flex gap-4">
-              <div className="flex-1 relative">
-                <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/20" />
-                <input 
-                  type="text"
+            <div className="flex flex-col md:flex-row gap-4">
+              <div className="flex-1">
+                <Input 
+                  name="search"
                   placeholder="Buscar producto o notas..."
-                  className="w-full bg-white/5 border border-white/10 rounded-2xl pl-12 pr-4 py-3 text-sm text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                  icon={<Search size={20} />}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
               </div>
-              <select 
-                className="bg-white/5 border border-white/10 rounded-2xl px-6 py-3 text-sm text-white focus:outline-none"
-                value={filterType}
-                onChange={(e) => setFilterType(e.target.value)}
-              >
-                <option value="">Todos los tipos</option>
-                <option value="entrada">Entradas</option>
-                <option value="salida">Salidas</option>
-              </select>
+              <div className="flex gap-4">
+                <select 
+                  className="bg-white/5 border border-white/10 rounded-2xl px-6 py-3 text-sm text-white focus:outline-none w-full md:w-auto"
+                  value={filterType}
+                  onChange={(e) => setFilterType(e.target.value)}
+                >
+                  <option value="">Todos los tipos</option>
+                  <option value="entrada">Entradas</option>
+                  <option value="salida">Salidas</option>
+                </select>
+              </div>
             </div>
             
             <div className="overflow-y-auto max-h-[300px] pr-2 custom-scrollbar">

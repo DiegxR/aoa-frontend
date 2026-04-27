@@ -1,11 +1,57 @@
 "use client";
 
-import Input from "@/app/components/Input";
 import { useProductsContext } from "@/app/context/ProductsContext";
 import { Formik } from "formik";
 import toast from "react-hot-toast";
 import * as Yup from "yup";
 import { CldUploadWidget } from "next-cloudinary";
+import { InputConfig } from "@/app/types/ui";
+import DynamicFormFields from "@/app/components/molecules/DynamicFormFields";
+
+const productFields: InputConfig[] = [
+  {
+    name: "name",
+    label: "Nombre",
+    placeholder: "Nombre del producto",
+    required: true,
+  },
+  {
+    name: "code",
+    label: "Código",
+    placeholder: "COD-001",
+    required: true,
+  },
+  {
+    name: "description",
+    label: "Descripción",
+    placeholder: "Descripción opcional",
+    type: "textarea",
+  },
+  {
+    name: "category",
+    label: "Categoría",
+    placeholder: "Categoría",
+    required: true,
+  },
+  {
+    name: "stock",
+    type: "number",
+    label: "Stock",
+    required: true,
+  },
+  {
+    name: "minStock",
+    type: "number",
+    label: "Stock mínimo",
+    required: true,
+  },
+  {
+    name: "unitPrice",
+    type: "number",
+    label: "Precio unitario",
+    required: true,
+  },
+];
 
 const productSchema = Yup.object({
   name: Yup.string()
@@ -112,78 +158,9 @@ const ProductsPage = () => {
         }) => (
           <form
             onSubmit={handleSubmit}
-            className="grid grid-cols-1 md:grid-cols-2 gap-4 rounded-xl border border-white/10 p-4"
+            className="grid grid-cols-1 gap-4 rounded-xl border border-white/10 p-4"
           >
-            <Input
-              name="name"
-              label="Nombre"
-              placeholder="Nombre del producto"
-              value={values.name}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              errorMessage={touched.name ? errors.name : undefined}
-              fullWidth
-            />
-            <Input
-              name="code"
-              label="Código"
-              placeholder="COD-001"
-              value={values.code}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              errorMessage={touched.code ? errors.code : undefined}
-              fullWidth
-            />
-            <Input
-              name="description"
-              label="Descripción"
-              placeholder="Descripción opcional"
-              value={values.description}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              errorMessage={touched.description ? errors.description : undefined}
-              fullWidth
-            />
-            <Input
-              name="category"
-              label="Categoría"
-              placeholder="Categoría"
-              value={values.category}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              errorMessage={touched.category ? errors.category : undefined}
-              fullWidth
-            />
-            <Input
-              name="stock"
-              type="number"
-              label="Stock"
-              value={values.stock}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              errorMessage={touched.stock ? errors.stock : undefined}
-              fullWidth
-            />
-            <Input
-              name="minStock"
-              type="number"
-              label="Stock mínimo"
-              value={values.minStock}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              errorMessage={touched.minStock ? errors.minStock : undefined}
-              fullWidth
-            />
-            <Input
-              name="unitPrice"
-              type="number"
-              label="Precio unitario"
-              value={values.unitPrice}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              errorMessage={touched.unitPrice ? errors.unitPrice : undefined}
-              fullWidth
-            />
+            <DynamicFormFields fields={productFields} />
 
             <div className="md:col-span-2 space-y-2">
               <label className="text-sm font-medium text-white/80">Imagen del producto</label>
@@ -223,7 +200,7 @@ const ProductsPage = () => {
                   <h4 className="text-sm font-semibold text-white">Subir archivo</h4>
                   <p className="text-xs text-white/40 max-w-[200px]">Sube una imagen para tu producto. Se recomienda 800x800px.</p>
                   <CldUploadWidget
-                    uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET || "aoa_products"}
+                    uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET || "ml_default"}
                     onSuccess={(result: any) => {
                       setFieldValue("image", result.info.secure_url);
                       toast.success("Imagen subida correctamente");

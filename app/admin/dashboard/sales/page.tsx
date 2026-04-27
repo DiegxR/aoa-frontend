@@ -8,7 +8,8 @@ import {
   SALES_BY_CATEGORY_QUERY,
   MOVEMENTS_REPORT_QUERY,
 } from "@/lib/graphql/queries";
-import AdminChart from "@/app/components/AdminChart";
+import AdminChart from "@/app/components/atoms/Chart";
+import Input from "@/app/components/atoms/Input";
 import { TrendingUp, DollarSign, ShoppingBag, Users, Filter, Calendar } from "lucide-react";
 import toast from "react-hot-toast";
 
@@ -119,22 +120,22 @@ const SalesPanel = () => {
         <div className="mb-8 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
           <h3 className="text-xl font-bold text-white">Historial de Transacciones</h3>
           <div className="flex flex-wrap items-center gap-4">
-            <div className="flex items-center gap-2 rounded-xl bg-white/5 px-4 py-2 border border-white/10">
-              <Calendar size={16} className="text-white/30" />
-              <input 
-                type="date" 
-                className="bg-transparent text-sm text-white focus:outline-none"
+            <div className="w-full sm:w-auto">
+              <Input
+                name="startDate"
+                type="date"
                 value={filters.startDate}
-                onChange={(e) => setFilters({...filters, startDate: e.target.value})}
+                onChange={(e) => setFilters({ ...filters, startDate: e.target.value })}
+                icon={<Calendar size={18} />}
               />
             </div>
-            <div className="flex items-center gap-2 rounded-xl bg-white/5 px-4 py-2 border border-white/10">
-              <Calendar size={16} className="text-white/30" />
-              <input 
-                type="date" 
-                className="bg-transparent text-sm text-white focus:outline-none"
+            <div className="w-full sm:w-auto">
+              <Input
+                name="endDate"
+                type="date"
                 value={filters.endDate}
-                onChange={(e) => setFilters({...filters, endDate: e.target.value})}
+                onChange={(e) => setFilters({ ...filters, endDate: e.target.value })}
+                icon={<Calendar size={18} />}
               />
             </div>
           </div>

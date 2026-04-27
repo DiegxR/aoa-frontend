@@ -1,13 +1,14 @@
 "use client";
 import { FormProvider, useForm } from "react-hook-form";
-import SignTemplate from "../components/SignTemplate";
-import { useAuth } from "../hooks/useAuth";
+import SignTemplate from "@/app/components/templates/SignTemplate";
+import { useAuth } from "@/app/hooks/useAuth";
 import { useAppDispatch } from "@/lib/store/hooks";
 import { hydrateFromStorage } from "@/lib/features/authSlice";
 import { setUsers } from "@/lib/features/usersSlice";
 import { createClientClient } from "@/lib/graphql/client";
 import { USERS_QUERY } from "@/lib/graphql/queries";
 import { toast } from "react-hot-toast";
+import { InputConfig } from "@/app/types/ui";
 
 interface SignInFormData {
   email: string;
@@ -23,7 +24,7 @@ const SignIn = () => {
   });
   const { handleSubmit } = methods;
 
-  const loginInputs = [
+  const loginInputs: InputConfig[] = [
     {
       name: "email",
       type: "email",
