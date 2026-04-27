@@ -99,7 +99,7 @@ const SignUp = () => {
       required: true,
       validation: {
         required: "Debes confirmar tu contraseña",
-        validate: (value: string, formValues: SignUpFormData) =>
+        validate: (value: string, formValues: any) =>
           value === formValues.password || "Las contraseñas no coinciden",
       },
     },

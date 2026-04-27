@@ -15,7 +15,7 @@ export interface InputConfig {
   helperText?: string;
   fullWidth?: boolean;
   className?: string;
-  validation?: RegisterOptions<FieldValues, string>;
+  validation?: RegisterOptions<any, string>;
 }
 
 /**
@@ -30,7 +30,7 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement | HTMLT
   errorMessage?: string;
   fullWidth?: boolean;
   isTextArea?: boolean;
-  validation?: RegisterOptions<FieldValues, string>;
+  validation?: RegisterOptions<any, string>;
 }
 
 /**
