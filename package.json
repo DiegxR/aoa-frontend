@@ -9,11 +9,28 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@apollo/client": "^4.1.9",
+    "@reduxjs/toolkit": "^2.11.2",
+    "chart.js": "^4.5.1",
+    "cloudinary": "^2.10.0",
+    "date-fns": "^4.1.0",
+    "formik": "^2.4.9",
+    "graphql": "^16.13.2",
+    "graphql-request": "^7.4.0",
+    "lucide-react": "^1.11.0",
     "next": "16.2.4",
+    "next-cloudinary": "^6.17.5",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-chartjs-2": "^5.3.1",
+    "react-dom": "19.2.4",
+    "react-hook-form": "^7.74.0",
+    "react-hot-toast": "^2.6.0",
+    "react-redux": "^9.2.0",
+    "yup": "^1.7.1"
   },
   "devDependencies": {
+    "@iconify/json": "^2.2.466",
+    "@iconify/tailwind4": "^1.2.3",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",

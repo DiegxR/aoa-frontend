@@ -1,5 +1,12 @@
 @import "tailwindcss";
-
+@plugin "@iconify/tailwind4";
+@plugin "@iconify/tailwind4" {
+  prefix: "iconify";
+  scale: 1.2;
+}
+@plugin "@iconify/tailwind4" {
+  prefixes: mdi-light, vscode-icons;
+}
 :root {
   --background: #ffffff;
   --foreground: #171717;
