@@ -64,7 +64,7 @@ export const register = createAsyncThunk(
       name,
       email,
       password,
-      role,
+      role: "admin",
       createdBy,
     });
     
