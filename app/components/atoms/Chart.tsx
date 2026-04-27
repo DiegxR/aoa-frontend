@@ -60,11 +60,12 @@ const AdminChart = ({ type, data, title, height = 300 }: ChartProps) => {
         display: !!title,
         text: title,
         color: "#fff",
-        font: { size: 16, weight: "bold" },
+        font: { size: 16, weight: "bold" as const },
       },
     },
     scales: type !== "pie" ? {
       y: {
+        beginAtZero: true,
         grid: { color: "rgba(255, 255, 255, 0.05)" },
         ticks: { color: "rgba(255, 255, 255, 0.5)" },
       },
@@ -72,8 +73,8 @@ const AdminChart = ({ type, data, title, height = 300 }: ChartProps) => {
         grid: { display: false },
         ticks: { color: "rgba(255, 255, 255, 0.5)" },
       },
-    } : {},
-  };
+    } : undefined,
+  } as any;
 
   return (
     <div style={{ height }} className="w-full">
